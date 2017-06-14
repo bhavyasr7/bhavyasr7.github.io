@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="health.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="angular.min.js"></script>
+
+<script type="text/javascript" src="fusioncharts.js"></script>
+
+<script type="text/javascript" src="angular-fusioncharts.min.js"></script>
+
+<script type="text/javascript" src="fusioncharts.charts.js"></script>
+<head>
+<style>
+
+body
+{
+background-color:#cccccc;
+}
+</style>
+</head>
+
+
+
+<body>
+
+  <div ng-app="myApp" ng-controller="myCtrl" class="mainBody">
+
+
+  
+
+<div class="w3-content w3-margin-top" >
+
+  
+  <div class="w3-row-padding">
+  
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4" style="width:330%;">
+
+    <div class="floatLeft">
+
+      <button type="button" class="btn btn-info">
+       <span class="glyphicon glyphicon-align-left"></span>
+    </button>
+
+    </div>
+
+    <div class="floatRight">
+
+      <div id="profile-container">
+   <image id="profileImage" src="facesmall.jpg">
+</div>
+<input id="imageUpload" type="file" 
+       name="profile_photo" placeholder="Photo" required="" capture>
+<script>
+$("#profileImage").click(function(e) {
+    $("#imageUpload").click();
+});
+
+function fasterPreview( uploader ) {
+    if ( uploader.files && uploader.files[0] ){
+          $('#profileImage').attr('src', 
+             window.URL.createObjectURL(uploader.files[0]) );
+    }
+}
+
+$("#imageUpload").change(function(){
+    fasterPreview( this );
+});
+</script>
+
+    </div>
+
+    <div class="titleSection">
+
+      <div>Welcome back {{personDetails.caption}},</div>
+
+      <div>Things look <span class="healthNormal">{{personDetails.subCaption}}</span></div>
+
+    </div>
+
+    <table id="healReport" class="tableData">
+
+      <tr>
+
+        <td>
+
+          <p><span style="font-weight:bold"><span style="font-size:1.5em";>{{personDetails.healthReport.temparature}}<sup>&#9900;</span></p>
+          <p>Temperature</p>
+
+          <p><img src="temparature.jpg" /></p>
+
+        </td>
+
+        <td>
+
+          <p><span style="font-weight:bold"><span style="font-size:1.5em";>{{personDetails.healthReport.caloriesBurned}}</span>&nbsp;cal
+          <p>calories burned</p>
+
+            <p><img src="calories.jpg" /></p>
+
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td>
+
+          <p><span style="font-weight:bold"><span style="font-size:1.5em";>{{personDetails.healthReport.stepsWalked}}</p>
+          <p>Steps</p>
+
+          <p id="healthBar" class="myBar">{{CommonUtils.adjustBarWidth("healthBar", personDetails.healthReport.stepsWalked)}}</p>
+
+        </td>
+
+        <td>
+
+          <p><span style="font-weight:bold"><span style="font-size:1.5em";>{{personDetails.healthReport.bpm}}</span>&nbsp;bpm
+          <p>Heart rate</p>
+
+          <p><img src="bpm.jpg" /></p>
+
+        </td>
+
+      </tr>
+
+    </table>
+
+
+
+    <div fusioncharts width="320" height="400" type="MSArea" dataSource="{{myDataSource}}">
+
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+  <script type="text/javascript">
+    var app = angular.module('myApp', ["ng-fusioncharts"]);
+
+    app.controller('myCtrl', function($scope) {
+
+      $scope.personDetails = {
+        "caption": "Jana",
+        "subCaption": "allright",
+        "healthReport": {
+          "temparature": "36.75",
+          "caloriesBurned": "537",
+          "stepsWalked": "3342",
+          "bpm": "87"
+        }
+      };
+
+
+
+      $scope.myDataSource = {
+
+        "chart": {
+
+          "caption": "Moving activity",
+
+          "subCaption": "Today vs Average",
+
+          "paletteColors": "#99ccff,#99ccff",
+
+          "bgColor": "#ffffff",
+
+          "showBorder": "0",
+
+          "showCanvasBorder": "0",
+
+          "plotBorderAlpha": "10",
+
+          "usePlotGradientColor": "0",
+
+          "legendBorderAlpha": "0",
+
+          "legendShadow": "0",
+
+          "plotFillAlpha": "60",
+
+          "showXAxisLine": "1",
+
+          "showYAxisValues": "0",
+
+          "showXAxisValues": "0",
+
+          "axisLineAlpha": "25",
+
+          "showValues": "0",
+
+          "captionFontSize": "14",
+
+          "subcaptionFontSize": "14",
+
+          "subcaptionFontBold": "0",
+
+          "divlineColor": "#999999",
+
+          "divLineDashed": "1",
+
+          "divLineDashLen": "1",
+
+          "showAlternateHGridColor": "0",
+
+          "toolTipColor": "#ffffff",
+
+          "toolTipBorderThickness": "0",
+
+          "toolTipBgColor": "#000000",
+
+          "toolTipBgAlpha": "80",
+
+          "toolTipBorderRadius": "2",
+
+          "toolTipPadding": "5"
+
+        },
+
+        "categories": [
+
+          {
+
+            "category": [
+
+              {
+
+                "label": "Mon"
+
+              },
+
+              {
+
+                "label": "Tue"
+
+              },
+
+              {
+
+                "label": "Wed"
+
+              },
+
+              {
+
+                "label": "Thu"
+
+              },
+
+              {
+
+                "label": "Fri"
+
+              },
+
+              {
+
+                "label": "Sat"
+
+              },
+
+              {
+
+                "label": "Sun"
+
+              }
+
+            ]
+
+          }
+
+        ],
+
+        "dataset": [
+
+          {
+
+            "seriesname": "00",
+
+            "data": [
+
+              {
+
+                "value": "16500"
+
+              },
+
+              {
+
+                "value": "5000"
+
+              },
+
+              {
+
+                "value": "4500"
+
+              },
+
+              {
+
+                "value": "8500"
+
+              },
+
+              {
+
+                "value": "15500"
+
+              },
+
+              {
+
+                "value": "17500"
+
+              },
+
+              {
+
+                "value": "13000"
+
+              }
+
+            ]
+
+          },
+
+          {
+
+            "seriesname": "08",
+
+            "data": [
+
+              {
+
+                "value": "8400"
+
+              },
+
+              {
+
+                "value": "9800"
+
+              },
+
+              {
+
+                "value": "11800"
+
+              },
+
+              {
+
+                "value": "14400"
+
+              },
+
+              {
+
+                "value": "18800"
+
+              },
+
+              {
+
+                "value": "20800"
+
+              },
+
+              {
+
+                "value": "13800"
+
+              }
+
+            ]
+
+          }
+
+        ]
+
+      };
+
+
+
+      $scope.CommonUtils = {
+
+        adjustBarWidth: function(elementId, widthVal) {
+
+          document.getElementById(elementId).style.width = (widthVal / 100) + "%";
+
+        }
+
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
